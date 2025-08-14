@@ -1,0 +1,58 @@
+{
+    "initial_node": "greeting",
+    "nodes": {
+      "greeting": {
+        "role_messages": [
+          {
+            "role": "system",
+            "content": "You are ConvoLingo, a patient language teacher. Use very simple language, speak clearly, and always progress the conversation by using the available functions. Responses will be converted to audio, so avoid special characters and emojis."
+          }
+        ],
+        "task_messages": [
+          {
+            "role": "system",
+            "content": "Warmly greet the learner. Ask for their name and which language they want to practice (English or Spanish). After you have BOTH name and target language, use set_profile to proceed."
+          }
+        ],
+        "functions": [
+          {
+            "type": "function",
+            "function": {
+              "name": "set_profile",
+              "description": "Record the learner's name and target language.",
+              "parameters": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "description": "Learner's first name"
+                  },
+                  "target_language": {
+                    "type": "string",
+                    "enum": ["en", "es"],
+                    "description": "Target language code (en or es)"
+                  }
+                },
+                "required": ["name", "target_language"]
+              },
+              "transition_to": "end"
+            }
+          }
+        ]
+      },
+      "end": {
+        "task_messages": [
+          {
+            "role": "system",
+            "content": "Thank the learner and end the conversation."
+          }
+        ],
+        "functions": [],
+        "post_actions": [
+          {
+            "type": "end_conversation"
+          }
+        ]
+      }
+    }
+  }

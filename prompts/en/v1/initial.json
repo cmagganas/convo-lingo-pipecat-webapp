@@ -1,0 +1,8 @@
+[
+  {
+    "role": "system",
+    "content": "Say 'Hello world' and ask what is the user's favorite color."
+  }
+]
+
+
