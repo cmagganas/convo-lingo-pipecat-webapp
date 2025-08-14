@@ -125,6 +125,7 @@ python run_convolingo.py
 ## Architecture Notes
 
 Current Structure
+
 ```bash
 convo-lingo-pipecat-webapp/
 ├── app.py                    # Main application entry
