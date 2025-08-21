@@ -337,17 +337,139 @@ python-dotenv~=1.0.1
 ```
 -->
 
-Progress so far
+## ✅ Current Status: WORKING END-TO-END VOICE APPLICATION
 
-- ✅ uv environment and dependencies installed
-- ✅ Pipecat Flows supported: `flows/convolingo_hello_world.json`
-- ✅ Working deployment: Cartesia STT/TTS + Google Gemini LLM
-- ✅ Function handler resolution: `set_profile` working
-- ✅ Deployed to Pipecat Cloud as `convo-lingo-webapp-v1`
+### What's Working (August 21, 2025):
 
-Next steps
+- ✅ **Complete Voice Pipeline**: Speech → AI → Speech working end-to-end
+- ✅ **Agent Deployed**: `convo-lingo-webapp-v1:0.3` on Pipecat Cloud
+- ✅ **Frontend Running**: React app with Voice UI Kit at http://localhost:5173
+- ✅ **Real-time Conversation**: User can speak to ConvoLingo and get responses
+- ✅ **Audio Quality**: Clear speech recognition and synthesis
+- ✅ **Infrastructure**: Docker deployment, secrets management, monitoring
 
-- Convert to dynamic flow (recommended pattern) and expand nodes
-- Add language state and prompt selection; introduce prompt versioning helper
-- Add optional `DAILY_MEETING_TOKEN` support for private rooms
-- Add basic tests and improve lesson structure
+### What's NOT Working:
+
+- ❌ **Frontend Metrics**: Token usage/processing metrics not displayed in UI
+- ❌ **Frontend Logs**: Agent conversation logs not visible in frontend
+- ❌ **Language Selection**: Simplified flow without language choice menu
+- ❌ **Structured Lessons**: Basic greeting only, no lesson progression
+
+### Quick Start (Current Working Version):
+
+```bash
+# 1. Start the frontend
+cd frontend && npm run dev
+
+# 2. Start an agent session (in another terminal)
+cd .. && pcc agent start convo-lingo-webapp-v1 --use-daily
+
+# 3. Update frontend with new room URL/token (from pcc output)
+# Edit frontend/src/index.tsx with new room details
+
+# 4. Open http://localhost:5173 and click "Connect"
+# 5. Start talking to ConvoLingo!
+```
+
+### Architecture:
+
+**Frontend** (React + Voice UI Kit) → **Daily WebRTC** → **Pipecat Cloud Agent** → **Cartesia STT** → **Google LLM** → **Cartesia TTS** → **Daily WebRTC** → **Frontend**
+
+## Troubleshooting Frontend Metrics & Logs
+
+### Issue: Metrics Not Displayed
+
+**Symptoms**: 
+- Frontend shows "Prompt Tokens: 0, Completion Tokens: 0"
+- Agent logs show actual token usage and metrics
+- Conversation works but UI doesn't update metrics
+
+**Investigation Steps**:
+
+1. **Check Voice UI Kit Configuration**:
+   ```typescript
+   // Current config in frontend/src/index.tsx
+   <ConsoleTemplate
+     transportType="daily"
+     connectParams={{
+       url: 'https://cloud-...daily.co/...',
+       token: '...'
+     }}
+   />
+   ```
+
+2. **Verify Agent Metrics Broadcasting**:
+   ```bash
+   # Check if agent is sending metrics to frontend
+   pcc agent logs convo-lingo-webapp-v1 | grep -E "(metric|usage|token)"
+   ```
+
+3. **Test Direct Connection**:
+   ```bash
+   # Test direct Daily room (bypasses Voice UI Kit)
+   # Open: https://cloud-...daily.co/ROOM_ID?t=TOKEN
+   ```
+
+### Recommendations for Metrics Fix:
+
+**Option 1: Voice UI Kit Configuration Research**
+- Research `@pipecat-ai/voice-ui-kit` documentation for metrics enablement
+- Check if `connectParams` needs additional configuration
+- Look for `enableMetrics` or similar flags
+
+**Option 2: Custom Metrics Implementation**
+- Implement custom metrics display using RTVI client directly
+- Subscribe to agent events for token usage updates
+- Create custom UI components for metrics display
+
+**Option 3: Agent Metrics Broadcasting**
+- Verify agent sends metrics via RTVI protocol
+- Check if metrics are enabled in `PipelineParams`
+- Ensure metrics frames are transmitted to frontend
+
+### Issue: Logs Not Displayed
+
+**Symptoms**:
+- Frontend console shows browser logs only
+- Agent conversation logs not visible in frontend
+- No real-time conversation transcript in UI
+
+**Investigation Steps**:
+
+1. **Check RTVI Event Subscription**:
+   ```javascript
+   // Add to frontend for debugging
+   rtviClient.on('message', (message) => {
+     console.log('Agent message:', message);
+   });
+   ```
+
+2. **Verify Agent Log Broadcasting**:
+   ```bash
+   # Check if agent logs are configured for frontend
+   pcc agent logs convo-lingo-webapp-v1 | grep -E "(transcript|message|user)"
+   ```
+
+### Next Development Priorities:
+
+1. **Short-term**: Debug and fix frontend metrics display
+2. **Medium-term**: Restore language selection flow with proper UI
+3. **Long-term**: Implement structured language lessons and progress tracking
+
+### Development Commands:
+
+```bash
+# Frontend development
+cd frontend && npm run dev
+
+# Agent management  
+pcc agent status convo-lingo-webapp-v1
+pcc agent start convo-lingo-webapp-v1 --use-daily
+pcc agent logs convo-lingo-webapp-v1 | tail -20
+
+# Testing
+curl -s http://localhost:5173  # Test frontend
+curl -s "https://cloud-...daily.co/ROOM" # Test Daily room
+```
+
+Last Updated: August 21, 2025

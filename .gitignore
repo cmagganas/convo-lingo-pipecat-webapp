@@ -10,3 +10,6 @@ __pycache__/
 
 # Virtual environments  
 pipecat-flows-convolingo/
+
+# ignore node_modules
+node_modules/

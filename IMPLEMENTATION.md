@@ -8,16 +8,33 @@ AI Language Learning WebApp using Pipecat Flows and Daily WebRTC
 
 - [x] Step 0: Repository setup and migration
 - [x] Step 1: Minimal Pipecat Flows setup
-- [ ] Step 2: Fix provider configuration
-- [ ] Step 3: Add language selection to flow
-- [ ] Step 4: Implement prompt versioning (en/es)
-- [ ] Step 5: Add lesson nodes
-- [ ] Step 6: Implement parallel pipeline for languages
-- [ ] Step 7: Add progress tracking
+- [x] Step 2: Fix provider configuration and deploy to Pipecat Cloud
+- [x] Step 3: Build React frontend with Voice UI Kit
+- [x] Step 4: Establish end-to-end voice conversation
+- [ ] Step 5: Add language selection to flow
+- [ ] Step 6: Implement prompt versioning (en/es)
+- [ ] Step 7: Add lesson nodes
+- [ ] Step 8: Implement parallel pipeline for languages
+- [ ] Step 9: Add progress tracking
+- [ ] Step 10: Fix frontend metrics and logging display
 
 ## Current Status
 
-✅ **Working Foundation Established** - Daily connection successful, ready for incremental improvements
+✅ **WORKING END-TO-END VOICE APPLICATION** - Frontend connects to deployed agent, voice conversation functional
+
+### What's Working Right Now:
+- ✅ **Agent Deployment**: `convo-lingo-webapp-v1` on Pipecat Cloud
+- ✅ **Voice Pipeline**: Cartesia STT/TTS + Google Gemini LLM
+- ✅ **Frontend**: React app with Pipecat Voice UI Kit
+- ✅ **Connection**: Frontend → Agent via Daily WebRTC
+- ✅ **Conversation**: ConvoLingo greets and responds to user
+- ✅ **Audio Processing**: Real-time speech recognition and synthesis
+
+### What's NOT Working:
+- ❌ **Frontend Metrics**: Token usage/metrics not displayed in UI
+- ❌ **Frontend Logs**: Agent logs not visible in frontend console
+- ❌ **Language Selection**: Currently uses simplified flow without language choice
+- ❌ **Lesson Structure**: Basic greeting only, no structured lessons
 
 ## Completed Steps
 
@@ -28,53 +45,72 @@ AI Language Learning WebApp using Pipecat Flows and Daily WebRTC
 - Renamed old repo to `convo-lingo-pipecat-twilio`
 - Set up Python 3.13.3 environment with uv
 
-### Step 1: Minimal Pipecat Flows (Dynamic Flow)
+### Step 1: Minimal Pipecat Flows Setup ✅ COMPLETE
+### Step 2: Provider Configuration & Deployment ✅ COMPLETE 
+### Step 3: React Frontend Development ✅ COMPLETE
+### Step 4: End-to-End Connection ✅ COMPLETE
 
-**Status**: ✅ Complete with test issues identified
+**Current Working Configuration**:
 
-**What's Working**:
+**Agent Side** (`convo-lingo-webapp-v1:0.3`):
+- **Docker Image**: `cmagganas/convo-lingo-webapp-v1:0.3`
+- **STT**: Cartesia Speech-to-Text (working)
+- **LLM**: Google Gemini 2.0 Flash (working)
+- **TTS**: Cartesia Text-to-Speech (working)
+- **Flow**: Simplified greeting flow (no complex functions)
+- **Transport**: Daily WebRTC transport
 
-- Dynamic flow using Pipecat Flows pattern
-- Function `collect_profile_func` for name and language collection
-- Nodes: `initial`, `end`
-- Daily WebRTC transport connects successfully
-- Flow manager initializes properly in full pipeline mode
+**Frontend Side** (`frontend/`):
+- **Framework**: React + TypeScript + Vite
+- **UI Kit**: `@pipecat-ai/voice-ui-kit`
+- **Transport**: Daily WebRTC via Voice UI Kit
+- **Connection**: Direct room URL + token authentication
 
-**Test Results**:
+**Working Pipeline**: User Speech → Cartesia STT → Google LLM → Cartesia TTS → User Audio
 
-1. `app.py` - FakeTask error in test mode (expected, needs real pipeline)
-2. `run_convolingo.py` - Successfully connects to Daily room
-3. Cartesia STT/TTS - HTTP 402 (payment required)
+**Deployment**:
+- **Agent**: Deployed on Pipecat Cloud
+- **Frontend**: Running locally (`npm run dev`)
+- **Connection**: Via Daily WebRTC rooms
 
-**Files Created/Modified**:
+**Files Structure**:
+```
+convo-lingo-pipecat-webapp/
+├── bot.py                    # Working agent code
+├── requirements.txt          # Python dependencies
+├── flows/
+│   └── convolingo_hello_world.json  # Simplified flow
+├── frontend/                 # React frontend
+│   ├── src/index.tsx        # Main app with Voice UI Kit
+│   ├── package.json         # Frontend dependencies
+│   └── ...
+└── .env                     # API keys and config
+```
 
-- `app.py` - Main application with flow setup
-- `run_convolingo.py` - Full pipeline with Daily transport
-- `flows/convolingo_hello_world.json` - Flow definition
-- `functions/favorite_color.py` - Example function
-- `prompts/en/v1/` - English prompts
-- `prompts/es/v1/` - Spanish prompts
-- `utils/prompt_loader.py` - Prompt loading utility
+## Next Priority Steps
 
-## Next Steps
+### Step 5: Debug Frontend Metrics Display
 
-### Step 2: Fix Provider Configuration
+**Problem**: Agent tracks metrics (token usage, processing time) but frontend doesn't display them
 
-- [ ] Switch to available STT provider (Deepgram or Google)
-- [ ] Switch to available TTS provider (OpenAI or ElevenLabs)
-- [ ] Test full audio loop with Daily
+**Investigation Needed**:
+1. Check Voice UI Kit documentation for metrics configuration
+2. Verify if metrics need to be explicitly enabled in `connectParams`
+3. Investigate if custom metrics implementation is required
 
-### Step 3: Add Language Selection
+### Step 6: Add Language Selection Flow
 
-- [ ] Modify `collect_profile_func` to handle language selection
-- [ ] Update flow state with selected language
-- [ ] Test language persistence through conversation
+**Goal**: Restore language selection functionality
+- Modify flow to include language choice
+- Update prompt system for multi-language support
+- Test language switching during conversation
 
-### Step 4: Implement Prompt Versioning
+### Step 7: Structured Learning Content
 
-- [ ] Load prompts based on selected language
-- [ ] Add prompt manager to handle versions
-- [ ] Test bilingual conversations
+**Goal**: Replace simple greeting with actual language lessons
+- Implement lesson progression
+- Add vocabulary and grammar content
+- Create assessment and feedback system
 
 ## Environment Setup
 

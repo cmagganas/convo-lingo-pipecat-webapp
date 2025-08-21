@@ -1,0 +1,16 @@
+
+> client@1.0.0 dev
+> node_modules/.bin/vite
+
+[33mThe CJS build of Vite's Node API is deprecated. See https://vite.dev/guide/troubleshooting.html#vite-cjs-node-api-deprecated for more details.[39m
+
+  VITE v6.2.5  ready in 135 ms
+
+  ➜  Local:   http://localhost:5173/
+  ➜  Network: use --host to expose
+  ➜  press h + enter to show help
+3:38:18 PM [vite] (client) page reload src/index.tsx
+3:38:33 PM [vite] (client) page reload src/index.tsx
+3:38:34 PM [vite] (client) page reload src/index.tsx
+3:40:01 PM [vite] (client) page reload src/index.tsx
+3:40:09 PM [vite] (client) page reload src/index.tsx
