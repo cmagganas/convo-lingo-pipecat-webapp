@@ -154,12 +154,14 @@ Daily room access (dev vs prod)
 **Image**: `cmagganas/convo-lingo-webapp-v1:0.1`  
 
 ### Architecture
+
 - **STT**: Cartesia Speech-to-Text  
 - **TTS**: Cartesia Text-to-Speech
 - **LLM**: Google Gemini 2.0 Flash
 - **Framework**: Pipecat Flows + Daily WebRTC
 
 ### Deploy Commands
+
 ```bash
 # Deploy webapp version
 pcc deploy convo-lingo-webapp-v1 cmagganas/convo-lingo-webapp-v1:0.1 --secrets convo-lingo-webapp-v1-secrets --force
