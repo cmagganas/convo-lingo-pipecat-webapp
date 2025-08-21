@@ -1,0 +1,76 @@
+# Documentation References and Guidelines
+
+## Official Documentation Sources
+
+### Cursor Rules Documentation
+- Primary Reference: https://docs.cursor.com/en/context/rules
+- Use this for understanding .cursorrules syntax and capabilities
+
+### Pipecat Core Documentation
+- Introduction: https://docs.pipecat.ai/guides/features/pipecat-flows
+- Main Documentation: https://docs.pipecat.daily.co/introduction
+- Getting Started: https://docs.pipecat.daily.co/quickstart#macos
+
+### Pipecat Cloud Platform
+- Accounts & Organizations: https://docs.pipecat.daily.co/accounts-and-organizations
+- Agent Management: https://docs.pipecat.daily.co/agents/agent-images
+- Agent Deployment: https://docs.pipecat.daily.co/agents/deploy
+- Active Sessions: https://docs.pipecat.daily.co/agents/active-sessions
+- Secrets Management: https://docs.pipecat.daily.co/agents/secrets
+- Scaling: https://docs.pipecat.daily.co/agents/scaling
+- Logging: https://docs.pipecat.daily.co/agents/logging
+- Error Codes: https://docs.pipecat.daily.co/agents/error-codes
+
+### Production Deployment
+- Daily WebRTC Integration: https://docs.pipecat.daily.co/pipecat-in-production/daily-webrtc
+
+### CLI Reference
+- CLI Overview: https://docs.pipecat.daily.co/cli-reference/overview
+- Agent Commands: https://docs.pipecat.daily.co/cli-reference/agent
+- Authentication: https://docs.pipecat.daily.co/cli-reference/auth
+- Deployment: https://docs.pipecat.daily.co/cli-reference/deploy
+- Initialization: https://docs.pipecat.daily.co/cli-reference/init
+- Organizations: https://docs.pipecat.daily.co/cli-reference/organizations
+- Secrets: https://docs.pipecat.daily.co/cli-reference/secrets
+
+### Docker Configuration
+- Starter Dockerfile: https://raw.githubusercontent.com/daily-co/pipecat-cloud-starter/refs/heads/main/Dockerfile
+
+### Project Repository
+- GitHub Repository: https://github.com/cmagganas/convo-lingo-pipecat-webapp
+- Pipecat Cloud Starter: https://github.com/daily-co/pipecat-cloud-starter
+
+## Documentation Usage Guidelines
+
+### When providing code suggestions or answers:
+1. Always reference the relevant documentation URL when applicable
+2. Check Pipecat documentation before suggesting implementation patterns
+3. Refer to official CLI reference for command-line operations
+4. Use Docker starter template as baseline for containerization
+5. Reference error codes documentation when handling exceptions
+6. Consult scaling documentation for performance considerations
+
+### Documentation Priority Order:
+1. Official Pipecat documentation (docs.pipecat.daily.co)
+2. Pipecat AI guides (docs.pipecat.ai)
+3. GitHub repository examples
+4. Docker official templates
+
+### Code References:
+- Before suggesting any Pipecat-related code, check the relevant documentation section
+- Include documentation links in code comments when implementing features
+- Reference CLI documentation for deployment and management scripts
+- Use official Docker template as starting point for containerization
+
+## Documentation Update Protocol
+- Verify documentation links are current before providing suggestions
+- When documentation is unclear, reference multiple sources
+- Prefer official documentation over third-party resources
+- Include version-specific documentation when relevant
+
+## Key Documentation Sections to Reference:
+- Agent deployment patterns: https://docs.pipecat.daily.co/agents/deploy
+- Session management: https://docs.pipecat.daily.co/agents/active-sessions
+- Error handling: https://docs.pipecat.daily.co/agents/error-codes
+- Production setup: https://docs.pipecat.daily.co/pipecat-in-production/daily-webrtc
+- CLI operations: https://docs.pipecat.daily.co/cli-reference/overview
