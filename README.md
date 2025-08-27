@@ -339,23 +339,23 @@ python-dotenv~=1.0.1
 
 ## ✅ Current Status: WORKING END-TO-END VOICE APPLICATION
 
-### What's Working (August 21, 2025):
+### What's Working (August 21, 2025)
 
 - ✅ **Complete Voice Pipeline**: Speech → AI → Speech working end-to-end
 - ✅ **Agent Deployed**: `convo-lingo-webapp-v1:0.3` on Pipecat Cloud
-- ✅ **Frontend Running**: React app with Voice UI Kit at http://localhost:5173
+- ✅ **Frontend Running**: React app with Voice UI Kit at <http://localhost:5173>
 - ✅ **Real-time Conversation**: User can speak to ConvoLingo and get responses
 - ✅ **Audio Quality**: Clear speech recognition and synthesis
 - ✅ **Infrastructure**: Docker deployment, secrets management, monitoring
 
-### What's NOT Working:
+### What's NOT Working
 
 - ❌ **Frontend Metrics**: Token usage/processing metrics not displayed in UI
 - ❌ **Frontend Logs**: Agent conversation logs not visible in frontend
 - ❌ **Language Selection**: Simplified flow without language choice menu
 - ❌ **Structured Lessons**: Basic greeting only, no lesson progression
 
-### Quick Start (Current Working Version):
+### Quick Start (Current Working Version)
 
 ```bash
 # 1. Start the frontend
@@ -371,7 +371,7 @@ cd .. && pcc agent start convo-lingo-webapp-v1 --use-daily
 # 5. Start talking to ConvoLingo!
 ```
 
-### Architecture:
+### Architecture
 
 **Frontend** (React + Voice UI Kit) → **Daily WebRTC** → **Pipecat Cloud Agent** → **Cartesia STT** → **Google LLM** → **Cartesia TTS** → **Daily WebRTC** → **Frontend**
 
@@ -379,7 +379,8 @@ cd .. && pcc agent start convo-lingo-webapp-v1 --use-daily
 
 ### Issue: Metrics Not Displayed
 
-**Symptoms**: 
+**Symptoms**:
+
 - Frontend shows "Prompt Tokens: 0, Completion Tokens: 0"
 - Agent logs show actual token usage and metrics
 - Conversation works but UI doesn't update metrics
@@ -387,6 +388,7 @@ cd .. && pcc agent start convo-lingo-webapp-v1 --use-daily
 **Investigation Steps**:
 
 1. **Check Voice UI Kit Configuration**:
+
    ```typescript
    // Current config in frontend/src/index.tsx
    <ConsoleTemplate
@@ -399,30 +401,35 @@ cd .. && pcc agent start convo-lingo-webapp-v1 --use-daily
    ```
 
 2. **Verify Agent Metrics Broadcasting**:
+
    ```bash
    # Check if agent is sending metrics to frontend
    pcc agent logs convo-lingo-webapp-v1 | grep -E "(metric|usage|token)"
    ```
 
 3. **Test Direct Connection**:
+
    ```bash
    # Test direct Daily room (bypasses Voice UI Kit)
    # Open: https://cloud-...daily.co/ROOM_ID?t=TOKEN
    ```
 
-### Recommendations for Metrics Fix:
+### Recommendations for Metrics Fix
 
 **Option 1: Voice UI Kit Configuration Research**
+
 - Research `@pipecat-ai/voice-ui-kit` documentation for metrics enablement
 - Check if `connectParams` needs additional configuration
 - Look for `enableMetrics` or similar flags
 
 **Option 2: Custom Metrics Implementation**
+
 - Implement custom metrics display using RTVI client directly
 - Subscribe to agent events for token usage updates
 - Create custom UI components for metrics display
 
 **Option 3: Agent Metrics Broadcasting**
+
 - Verify agent sends metrics via RTVI protocol
 - Check if metrics are enabled in `PipelineParams`
 - Ensure metrics frames are transmitted to frontend
@@ -430,6 +437,7 @@ cd .. && pcc agent start convo-lingo-webapp-v1 --use-daily
 ### Issue: Logs Not Displayed
 
 **Symptoms**:
+
 - Frontend console shows browser logs only
 - Agent conversation logs not visible in frontend
 - No real-time conversation transcript in UI
@@ -437,6 +445,7 @@ cd .. && pcc agent start convo-lingo-webapp-v1 --use-daily
 **Investigation Steps**:
 
 1. **Check RTVI Event Subscription**:
+
    ```javascript
    // Add to frontend for debugging
    rtviClient.on('message', (message) => {
@@ -445,18 +454,19 @@ cd .. && pcc agent start convo-lingo-webapp-v1 --use-daily
    ```
 
 2. **Verify Agent Log Broadcasting**:
+
    ```bash
    # Check if agent logs are configured for frontend
    pcc agent logs convo-lingo-webapp-v1 | grep -E "(transcript|message|user)"
    ```
 
-### Next Development Priorities:
+### Next Development Priorities
 
 1. **Short-term**: Debug and fix frontend metrics display
 2. **Medium-term**: Restore language selection flow with proper UI
 3. **Long-term**: Implement structured language lessons and progress tracking
 
-### Development Commands:
+### Development Commands
 
 ```bash
 # Frontend development
